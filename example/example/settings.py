@@ -175,6 +175,7 @@ ADMIN_SHORTCUTS = [
                 'icon': 'columns',
                 'url_name': 'admin:index',
                 'count_new': '3',
+                'count_alert': '5',
             },
             {
                 'title': 'Products',
@@ -184,6 +185,7 @@ ADMIN_SHORTCUTS = [
                 'title': _('Orders'),
                 'url_name': 'admin:index',
                 'count_new': '12',
+                'count_alert': '5',
             },
         ]
     },
