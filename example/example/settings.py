@@ -174,6 +174,8 @@ ADMIN_SHORTCUTS = [
                 'url_name': 'admin:index',
                 'count_new': '3',
                 'count_alert': '5',
+                'count_total': '5',
+                'count_active': '25',
             },
             {
                 'title': 'Products',
@@ -184,6 +186,7 @@ ADMIN_SHORTCUTS = [
                 'url_name': 'admin:index',
                 'count_new': '12',
                 'count_alert': '5',
+                'count_active': '25',
             },
         ]
     },

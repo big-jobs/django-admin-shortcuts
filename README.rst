@@ -62,7 +62,7 @@ Where ...
 * optional ``url`` is a direct link that will override ``url_name``
 * optional ``url_extra`` is extra stuff to be attached at the end of the url (like GET data for pre-filtering admin views)
 * optional ``title`` is the title of the shortcut
-* optional ``count``, ``count_alert`` and ``count_new`` are paths to a function inside your project that returns something interesting (like a count of all products or a count of all pending orders).
+* optional ``count``, ``count_alert``, ``count_active`` and ``count_new`` are paths to a function inside your project that returns something interesting (like a count of all products or a count of all pending orders).
   The function can optionally take one argument, ``request``, which is the current Django ``HttpRequest`` object.
 * optional ``has_perms`` is a path to a function inside your project that returns information about shortcut visibility on the django admin homepage.
   Like above, this function can optionally take one argument ``request`` as well.
@@ -138,6 +138,7 @@ What are the settings used in the pretty image above?
                     'url_name': 'admin:index',
                     'count_new': '3',
                     'count_alert': '5',
+                    'count_active': '25',
                 },
                 {
                     'title': 'Products',
@@ -148,6 +149,8 @@ What are the settings used in the pretty image above?
                     'url_name': 'admin:index',
                     'count_new': '12',
                     'count_alert': '1',
+                    'count_active': '25',
+
                 },
             ]
         },
