@@ -57,7 +57,7 @@ Where ...
 * optional `url` is a direct link that will override `url_name`
 * optional `url_extra` is extra stuff to be attached at the end of the url (like GET data for pre-filtering admin views)
 * optional `title` is the title of the shortcut
-* optional `count` and `count_new` are paths to a function inside your project that returns something interesting (like a count of all products or a count of all pending orders).
+* optional `count`, `count_alert`, `count_active` and `count_new` are paths to a function inside your project that returns something interesting (like a count of all products or a count of all pending orders).
   The function can optionally take one argument, `request`, which is the current Django `HttpRequest` object.
 * optional `test_func` is a path to a function inside your project that returns a boolean. If True the shortcut is displayed.
   Like above, this function can optionally take one argument `request` as well.
@@ -113,7 +113,7 @@ ADMIN_SHORTCUTS = [
                 'title': 'Add user',
                 'url_name': 'admin:auth_user_add',
                 'test_func': 'example.utils.has_perms_to_users',
-           'url_name': 'admin:auth_user_add',
+                'url_name': 'admin:auth_user_add',
                 'has_perms': 'example.utils.has_perms_to_users',
             },
         ]
@@ -134,6 +134,8 @@ ADMIN_SHORTCUTS = [
                 'icon': 'columns',
                 'url_name': 'admin:index',
                 'count_new': '3',
+                'count_alert': '5',
+                'count_active': '25',
             },
             {
                 'title': 'Products',
@@ -143,6 +145,8 @@ ADMIN_SHORTCUTS = [
                 'title': 'Orders',
                 'url_name': 'admin:index',
                 'count_new': '12',
+                'count_alert': '1',
+                'count_active': '25',
             },
         ]
     },

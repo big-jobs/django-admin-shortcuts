@@ -22,11 +22,15 @@
 {% block count %}
 /* count */
 .admin_shortcuts .shortcuts li a .count { position: absolute; right: 3px; bottom: 2px; color: #96c9e5; font-size: 10px; }
-.admin_shortcuts .shortcuts li a .count_new { position: absolute; right: -7px; top: -7px; color: #fff; font-size: 11px;
+.admin_shortcuts .shortcuts li a .count_new { position: absolute; right: -6px; top: -7px; color: #fff; font-size: 11px;
 	line-height: 14px; border-radius: 30px; display: block; overflow: hidden; max-width: 60px; min-width: 15px;
 	height: 20px; padding: 5px 5px 0 5px; background: #445023; text-align: center; font-weight: bold;
 	box-shadow: 0 0 3px rgba(0,0,0,0.2); }
-.admin_shortcuts .shortcuts li a .count_alert { position: absolute; right: -7px; bottom: -7px; color: #fff; font-size: 11px;
+.admin_shortcuts .shortcuts li a .count_alert { position: absolute; left: -6px; top: -7px; color: #fff; font-size: 11px;
+	line-height: 14px; border-radius: 30px; display: block; overflow: hidden; max-width: 60px; min-width: 15px;
+	height: 20px; padding: 5px 5px 0 5px; background: #940f3a; text-align: center; font-weight: bold;
+	box-shadow: 0 0 3px rgba(0,0,0,0.2); }
+.admin_shortcuts .shortcuts li a .count_active { position: absolute; right: -7px; bottom: -7px; color: #fff; font-size: 11px;
 	line-height: 14px; border-radius: 30px; display: block; overflow: hidden; max-width: 60px; min-width: 15px;
 	height: 20px; padding: 5px 5px 0 5px; background: #940f3a; text-align: center; font-weight: bold;
 	box-shadow: 0 0 3px rgba(0,0,0,0.2); }

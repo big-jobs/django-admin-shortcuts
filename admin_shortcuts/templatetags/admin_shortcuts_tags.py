@@ -97,11 +97,16 @@ def admin_shortcuts(context):
             if shortcut.get('count'):
                 shortcut['count'] = eval_func(shortcut['count'], request)
 
-            if shortcut.get('count_new'):
-                shortcut['count_new'] = eval_func(shortcut['count_new'], request)
-
             if shortcut.get('count_alert'):
                 shortcut['count_alert'] = eval_func(shortcut['count_alert'], request)
+            elif shortcut.get('count_new'):
+                shortcut['count_new'] = eval_func(shortcut['count_new'], request)
+
+            if shortcut.get('count_active'):
+                shortcut['count_active'] = eval_func(shortcut['count_active'], request)
+
+
+
 
             if shortcut.get('title'):
                 shortcut['title'] = gettext(shortcut['title'])
