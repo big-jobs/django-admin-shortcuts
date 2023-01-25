@@ -32,7 +32,7 @@
 	box-shadow: 0 0 3px rgba(0,0,0,0.2); }
 .admin_shortcuts .shortcuts li a .count_active { position: absolute; right: -7px; bottom: -7px; color: #fff; font-size: 11px;
 	line-height: 14px; border-radius: 30px; display: block; overflow: hidden; max-width: 60px; min-width: 15px;
-	height: 20px; padding: 5px 5px 0 5px; background: #940f3a; text-align: center; font-weight: bold;
+	height: 20px; padding: 5px 5px 0 5px; background: #0f2099; text-align: center; font-weight: bold;
 	box-shadow: 0 0 3px rgba(0,0,0,0.2); }
 {% endblock %}
 
