@@ -46,6 +46,14 @@ def admin_shortcuts(context):
     if not admin_shortcuts:
         return {}
 
+    is_front_page = False
+    if request:
+        is_front_page = reverse('admin:index') == request.path
+
+    enable_admin_shortcuts = is_front_page or admin_shortcuts_settings.get('show_on_all_pages')
+    if not enable_admin_shortcuts:
+        return {}
+
     for group in admin_shortcuts:
         if not group.get('shortcuts'):
             raise ImproperlyConfigured('settings.ADMIN_SHORTCUTS is improperly configured.')
@@ -114,9 +122,6 @@ def admin_shortcuts(context):
 
         group['shortcuts'] = enabled_shortcuts
 
-    is_front_page = False
-    if request:
-        is_front_page = reverse('admin:index') == request.path
 
     return {
         'enable_admin_shortcuts': is_front_page or admin_shortcuts_settings.get('show_on_all_pages'),
