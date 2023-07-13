@@ -114,7 +114,6 @@ def admin_shortcuts(context):
             if shortcut.get('count_active'):
                 shortcut['count_active'] = eval_func(shortcut['count_active'], request)
 
-
             if shortcut.get('title'):
                 shortcut['title'] = gettext(shortcut['title'])
 
