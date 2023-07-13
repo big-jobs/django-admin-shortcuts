@@ -16,7 +16,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
     install_requires=[
-        'Django>=1.2',
+        'Django>=4.2',
     ],
     download_url='https://github.com/alesdotio/django-admin-shortcuts/tarball/' + version,
     license='BSD',

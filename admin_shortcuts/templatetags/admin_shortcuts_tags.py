@@ -95,7 +95,6 @@ def admin_shortcuts(context):
             if shortcut.get('count_active'):
                 shortcut['count_active'] = eval_func(shortcut['count_active'], request)
 
-
             if shortcut.get('title'):
                 shortcut['title'] = gettext(shortcut['title'])
 
@@ -135,7 +134,7 @@ def eval_func(func_path, request):
         module = import_module(module_str)
         result = getattr(module, func_str)
         if callable(result):
-            args, varargs, keywords, defaults = inspect.getargspec(result)
+            args, varargs, keywords, defaults, _, _, _ = inspect.getfullargspec(result)
             if 'request' in args:
                 result = result(request)
             else:
