@@ -1,1 +1,1 @@
-version = "2.0.1.post20230715"
+version: str = "2.1.1"
