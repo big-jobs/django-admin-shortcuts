@@ -46,6 +46,14 @@ def admin_shortcuts(context):
     if not admin_shortcuts:
         return {}
 
+    is_front_page = False
+    if request:
+        is_front_page = reverse('admin:index') == request.path
+
+    enable_admin_shortcuts = is_front_page or admin_shortcuts_settings.get('show_on_all_pages')
+    if not enable_admin_shortcuts:
+        return {}
+
     for group in admin_shortcuts:
         if not group.get('shortcuts'):
             raise ImproperlyConfigured('settings.ADMIN_SHORTCUTS is improperly configured.')
@@ -97,8 +105,14 @@ def admin_shortcuts(context):
             if shortcut.get('count'):
                 shortcut['count'] = eval_func(shortcut['count'], request)
 
+            if shortcut.get('count_alert'):
+                shortcut['count_alert'] = eval_func(shortcut['count_alert'], request)
+
             if shortcut.get('count_new'):
                 shortcut['count_new'] = eval_func(shortcut['count_new'], request)
+
+            if shortcut.get('count_active'):
+                shortcut['count_active'] = eval_func(shortcut['count_active'], request)
 
             if shortcut.get('title'):
                 shortcut['title'] = gettext(shortcut['title'])
@@ -107,9 +121,6 @@ def admin_shortcuts(context):
 
         group['shortcuts'] = enabled_shortcuts
 
-    is_front_page = False
-    if request:
-        is_front_page = reverse('admin:index') == request.path
 
     return {
         'enable_admin_shortcuts': is_front_page or admin_shortcuts_settings.get('show_on_all_pages'),
