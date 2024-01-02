@@ -13,13 +13,13 @@ setup(
     description='Add simple and pretty shortcuts to the django admin homepage.',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/alesdotio/django-admin-shortcuts',
+    url='https://github.com/big-jobs/django-admin-shortcuts',
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
     install_requires=[
         'Django>=3.2',
     ],
-    download_url='https://github.com/alesdotio/django-admin-shortcuts/tarball/' + version,
+    download_url='https://github.com/big-jobs/django-admin-shortcuts/tarball/' + version,
     license='BSD',
     classifiers=[
       'Development Status :: 3 - Alpha',
