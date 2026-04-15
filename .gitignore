@@ -4,3 +4,4 @@ dist
 /tmp
 .venv
 .idea/
+.Ds_Store
