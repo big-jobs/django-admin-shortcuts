@@ -123,8 +123,7 @@ def admin_shortcuts(context):
 
 
     return {
-        'enable_admin_shortcuts': is_front_page or admin_shortcuts_settings.get('show_on_all_pages'),
-        'enable_hide_app_list': is_front_page and admin_shortcuts_settings.get('hide_app_list'),
+        'enable_admin_shortcuts': is_front_page,
         'admin_shortcuts': admin_shortcuts,
     }
 
@@ -132,18 +131,6 @@ def admin_shortcuts(context):
 @register.inclusion_tag('admin_shortcuts/style.css')
 def admin_shortcuts_css():
     return {}
-
-
-@register.inclusion_tag('admin_shortcuts/js.html', takes_context=True)
-def admin_shortcuts_js(context):
-    admin_shortcuts_settings = getattr(settings, 'ADMIN_SHORTCUTS_SETTINGS', {})
-    request = context.get('request', None)
-    is_front_page = False
-    if request:
-        is_front_page = reverse('admin:index') == request.path
-    return {
-        'enable_hide_app_list': is_front_page and admin_shortcuts_settings.get('hide_app_list'),
-    }
 
 
 def eval_func(func_path, request):
@@ -174,14 +161,14 @@ def admin_static_url():
     return getattr(settings, 'ADMIN_MEDIA_PREFIX', None) or ''.join([settings.STATIC_URL, 'admin/'])
 
 
-DEFAULT_ICON = getattr(settings, 'ADMIN_SHORTCUTS_DEFAULT_ICON', 'cog')
+DEFAULT_ICON = getattr(settings, 'ADMIN_SHORTCUTS_DEFAULT_ICON', '➡️')
 
 
 def get_shortcut_class(text=''):
     text = text.lower()
     icon_weights = {}
     max_weight = 0
-    for icon, keywords in CLASS_MAPPINGS.items():
+    for icon, keywords in ICON_MAPPINGS.items():
         weight = sum([1 if k in text else 0 for k in keywords])
         icon_weights[icon] = weight
         if weight > max_weight:
@@ -195,23 +182,84 @@ def get_shortcut_class(text=''):
     return DEFAULT_ICON
 
 
-CLASS_MAPPINGS = getattr(settings, 'ADMIN_SHORTCUTS_CLASS_MAPPINGS', {
-    'home': ['home'],
-    'plus': ['add'],
-    'lock': ['logout', 'login'],
-    'file': ['file'],
-    'file-alt': ['page', 'text'],
-    'image': ['image', 'picture', 'photo', 'gallery'],
-    'shopping-cart': ['product', 'store'],
-    'money-bill-alt': ['order', 'pay', 'sale', 'income', 'revenue'],
-    'archive': ['category'],
-    'user': ['user', 'account'],
-    'users': ['group', 'team'],
-    'address-book': ['address', 'contacts'],
-    'envelope': ['message', 'contact', 'mail'],
-    'folder': ['folder', 'directory', 'path'],
-    'book': ['blog', 'book'],
-    'calendar': ['event', 'calendar'],
-    'truck': ['delivery', 'shipping'],
-    'edit': ['change', 'edit'],
+ICON_MAPPINGS = getattr(settings, 'ADMIN_SHORTCUTS_ICON_MAPPINGS', {
+    '🏠': ['home', 'main', 'dashboard', 'start'],
+    '➕': ['add', 'plus', 'create', 'new'],
+    '🔒': ['logout', 'login', 'lock', 'secure', 'authentication'],
+    '📄': ['file', 'document', 'paper', 'doc'],
+    '📃': ['page', 'text', 'sheet'],
+    '🖼️': ['image', 'picture', 'photo', 'gallery', 'media'],
+    '🛒': ['product', 'store', 'cart', 'shopping'],
+    '💵': ['order', 'pay', 'sale', 'income', 'revenue', 'money', 'finance'],
+    '📦': ['category', 'box', 'package'],
+    '👤': ['user', 'account', 'profile', 'person'],
+    '👥': ['group', 'team', 'users', 'community'],
+    '📒': ['address', 'contacts', 'book', 'directory'],
+    '✉️': ['message', 'contact', 'mail', 'email'],
+    '📁': ['folder', 'directory', 'path', 'files'],
+    '📚': ['blog', 'book', 'library', 'reading'],
+    '📅': ['event', 'calendar', 'schedule', 'date'],
+    '🚚': ['delivery', 'shipping', 'truck', 'transport'],
+    '✏️': ['change', 'edit', 'modify', 'write', 'pencil'],
+    '🔍': ['search', 'find', 'look', 'magnify'],
+    '📊': ['report', 'chart', 'statistics', 'analytics', 'data', 'graph'],
+    '💼': ['business', 'portfolio', 'briefcase', 'work'],
+    '📈': ['growth', 'increase', 'analytics', 'rise', 'trend'],
+    '⚙️': ['settings', 'preferences', 'gear', 'tools'],
+    '📉': ['decrease', 'decline', 'drop', 'reduce'],
+    '🔗': ['link', 'connection', 'url', 'chain'],
+    '📷': ['camera', 'photo', 'picture', 'snap'],
+    '🔔': ['notification', 'alert', 'bell', 'reminder'],
+    '🏷️': ['tag', 'label', 'price', 'sticker'],
+    '💬': ['chat', 'conversation', 'message', 'discussion', 'comment', 'feedback', 'reply'],
+    '🔄': ['sync', 'refresh', 'reload', 'update'],
+    '💡': ['idea', 'tip', 'insight', 'lightbulb'],
+    '🔓': ['unlock', 'access', 'open', 'secure'],
+    '📌': ['pin', 'bookmark', 'save', 'mark'],
+    '🔧': ['tool', 'fix', 'maintenance', 'repair', 'wrench'],
+    '🖊️': ['sign', 'signature', 'write', 'pen'],
+    '📤': ['send', 'outbox', 'upload', 'export'],
+    '📥': ['receive', 'inbox', 'download', 'import'],
+    '🗑️': ['delete', 'remove', 'trash', 'discard'],
+    '📋': ['clipboard', 'copy', 'list', 'paste'],
+    '🔨': ['build', 'construct', 'hammer'],
+    '💳': ['payment', 'credit card', 'card', 'finance'],
+    '🔑': ['key', 'password', 'authentication', 'security'],
+    '📝': ['note', 'document', 'write', 'memo', 'to-do', 'task', 'list'],
+    '🗂️': ['archive', 'file', 'folder', 'organize'],
+    '💻': ['computer', 'laptop', 'device', 'tech'],
+    '📲': ['mobile', 'phone', 'device', 'smartphone'],
+    '🌐': ['web', 'internet', 'global', 'world'],
+    '🕒': ['time', 'clock', 'hour', 'schedule'],
+    '🔋': ['battery', 'power', 'charge'],
+    '🛠️': ['tools', 'repair', 'settings', 'maintenance'],
+    '📶': ['network', 'signal', 'wifi', 'connection'],
+    '🎨': ['design', 'art', 'creativity', 'paint'],
+    '📛': ['badge', 'identification', 'ID', 'tag'],
+    '🎫': ['ticket', 'pass', 'entry'],
+    '🌟': ['favorite', 'highlight', 'star', 'feature'],
+    '🗳️': ['vote', 'ballot', 'election', 'choice'],
+    '📎': ['attachment', 'paperclip', 'clip'],
+    '📧': ['email', 'message', 'mail', 'send'],
+    '📬': ['mailbox', 'receive', 'post', 'inbox'],
+    '📯': ['announcement', 'notification', 'alert'],
+    '📱': ['mobile', 'phone', 'smartphone', 'device'],
+    '🖥️': ['desktop', 'computer', 'monitor', 'screen'],
+    '🖨️': ['print', 'printer', 'document'],
+    '🖱️': ['click', 'mouse', 'pointer'],
+    '🎙️': ['record', 'microphone', 'audio'],
+    '🎥': ['video', 'camera', 'record', 'film'],
+    '🎞️': ['film', 'movie', 'record'],
+    '🎬': ['action', 'movie', 'clapperboard'],
+    '📹': ['video', 'camera', 'record'],
+    '🎧': ['audio', 'headphones', 'music'],
+    '🎤': ['microphone', 'audio', 'record'],
+    '📡': ['satellite', 'antenna', 'signal'],
+    '🛰️': ['satellite', 'space', 'signal'],
+    '📺': ['tv', 'television', 'screen'],
+    '📻': ['radio', 'audio', 'broadcast'],
+    '📽️': ['projector', 'film', 'movie'],
+    '🔦': ['flashlight', 'light', 'torch'],
+    '📖': ['book', 'read', 'pages'],
+    '📰': ['news', 'newspaper', 'article'],
 })
